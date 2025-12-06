@@ -1,151 +1,104 @@
-# URL Indexation Checker Dashboard
+# URL Indexation Checker - Frontend Dashboard
 
-A web-based tool to monitor Google indexation status of URLs with automated daily checks and manual trigger capabilities.
+React + Tailwind CSS dashboard for monitoring URL indexation status with real-time statistics, color-coded display, and manual trigger capabilities.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend
-- **Node.js** - JavaScript runtime environment
-- **Express.js** - Web application framework
-- **node-cron** - Task scheduler for automated checks
-- **axios** - HTTP client for URL validation
-- **csv-parser** - Read CSV files
-- **csv-writer** - Write CSV files
-- **cors** - Cross-origin resource sharing
-
-### Frontend
 - **React 18** - UI library
-- **Vite** - Build tool and dev server
+- **Vite** - Build tool & dev server
 - **Tailwind CSS** - Utility-first CSS framework
 - **Lucide React** - Icon library
-- **axios** - API communication
-
-### Storage
-- **CSV File** - Simple file-based data storage
+- **axios** - HTTP client for API calls
 
 ---
 
-## 🚀 Setup Steps
+## 📁 Project Structure
+
+```
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.jsx     # Main dashboard component
+│   │   └── URLTable.jsx      # URL list table component
+│   ├── services/
+│   │   └── api.js            # API integration service
+│   ├── App.jsx               # Root component
+│   ├── main.jsx              # React entry point
+│   └── index.css             # Global styles with Tailwind
+├── public/                   # Static assets
+├── index.html                # HTML template
+├── vite.config.js            # Vite configuration
+├── postcss.config.cjs        # PostCSS configuration
+├── tailwind.config.cjs       # Tailwind configuration
+└── package.json              # Dependencies
+```
+
+---
+
+## 🚀 Installation
 
 ### Prerequisites
-- Node.js (v16 or higher) - [Download](https://nodejs.org/)
-- npm (comes with Node.js)
-- Code editor (VS Code recommended)
+- Node.js v16 or higher
+- npm v7 or higher
+- Backend server running on port 5000
 
-### Step 1: Verify Node.js Installation
+### Setup Steps
+
+1. **Clone the repository**
 ```bash
-node --version
-npm --version
+git clone <repository-url>
+cd frontend
 ```
 
-### Step 2: Create Project Structure
+2. **Install dependencies**
 ```bash
-# Create main folder
-mkdir url-indexation-checker
-cd url-indexation-checker
-
-# Create backend and frontend folders
-mkdir backend frontend
+npm install
 ```
 
-### Step 3: Backend Setup
-
+3. **Start development server**
 ```bash
-# Navigate to backend
-cd backend
-
-# Initialize npm
-npm init -y
-
-# Install dependencies
-npm install express cors csv-parser csv-writer node-cron axios
-npm install --save-dev nodemon
-
-# Create folder structure
-mkdir config controllers middleware models routes services data
+npm run dev
 ```
 
-**Create these backend files:**
-- `server.js` - Main server file
-- `config/scheduler.js` - Cron job configuration
-- `controllers/urlController.js` - Request handlers
-- `middleware/errorHandler.js` - Error handling
-- `models/urlModel.js` - Data operations
-- `routes/urlRoutes.js` - API routes
-- `services/indexationService.js` - Indexation logic
+The app will open at `http://localhost:5173`
 
-**Update `package.json` scripts:**
+---
+
+## 📦 Dependencies
+
 ```json
 {
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "axios": "^1.6.0",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "tailwindcss": "^3.3.6",
+    "postcss": "^8.4.32",
+    "autoprefixer": "^10.4.16",
+    "vite": "^5.0.8"
   }
 }
 ```
 
-### Step 4: Frontend Setup
-
+### Install All Dependencies
 ```bash
-# Go back to project root
-cd ..
-
-# Create Vite React app
-npm create vite@latest frontend -- --template react
-
-# Navigate to frontend
-cd frontend
-
-# Install dependencies
-npm install
-npm install axios lucide-react
-npm install -D tailwindcss@3.3.6 postcss@8.4.32 autoprefixer@10.4.16
-
-# Create folders
-mkdir src/components src/services
+npm install react react-dom axios lucide-react
+npm install -D tailwindcss@3.3.6 postcss@8.4.32 autoprefixer@10.4.16 @vitejs/plugin-react vite
 ```
 
-**Create these frontend files:**
-- `vite.config.js` - Vite configuration
-- `postcss.config.cjs` - PostCSS configuration
-- `tailwind.config.cjs` - Tailwind configuration
-- `index.html` - HTML template
-- `src/index.css` - Global styles
-- `src/main.jsx` - React entry point
-- `src/App.jsx` - Root component
-- `src/components/Dashboard.jsx` - Main dashboard
-- `src/components/URLTable.jsx` - URL table
-- `src/services/api.js` - API service
+---
 
-**Important Configuration Files:**
+## ⚙️ Configuration
 
-**`postcss.config.cjs`:**
-```javascript
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-```
+### Vite Configuration
+File: `vite.config.js`
 
-**`tailwind.config.cjs`:**
-```javascript
-module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-**`vite.config.js`:**
 ```javascript
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -164,407 +117,473 @@ export default defineConfig({
 })
 ```
 
-### Step 5: Run the Application
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
-npm start
-```
-
-Expected output:
-```
-✅ Server running on http://localhost:5000
-⏰ Starting daily scheduler...
-✅ Scheduler configured: Time: 9:00 AM IST (Daily)
-```
-
-**Terminal 2 - Frontend:**
-```bash
-cd frontend
-npm run dev
-```
-
-Expected output:
-```
-VITE v5.x.x  ready in xxx ms
-➜  Local:   http://localhost:5173/
-```
-
-### Step 6: Access Application
-
-Open browser: **http://localhost:5173**
-
-You should see:
-- Dashboard with statistics cards
-- "Run Check Now" button
-- Table with 30 sample URLs
-
----
-
-## ⏰ Scheduler Configuration
-
-### Current Schedule
-- **Time**: 9:00 AM IST (Daily)
-- **File**: `backend/config/scheduler.js`
-- **Implementation**: node-cron
-
-### How It Works
-
-The scheduler automatically runs the indexation check every day at 9:00 AM IST. It:
-1. Reads all URLs from the CSV file
-2. Checks each URL's indexation status
-3. Updates the CSV with results
-4. Logs the summary to console
-
-### Scheduler Code Location
-
-File: `backend/config/scheduler.js`
+### Tailwind Configuration
+File: `tailwind.config.cjs` (must be .cjs)
 
 ```javascript
-const cronExpression = '0 9 * * *'; // 9:00 AM daily
-
-const task = cron.schedule(
-  cronExpression,
-  performScheduledCheck,
-  {
-    scheduled: true,
-    timezone: 'Asia/Kolkata'  // IST timezone
-  }
-);
-```
-
----
-
-## 🕐 How to Change Schedule Time
-
-### Step 1: Open Configuration File
-
-Navigate to: `backend/config/scheduler.js`
-
-### Step 2: Modify Cron Expression
-
-Find this line:
-```javascript
-const cronExpression = '0 9 * * *'; // Current: 9:00 AM daily
-```
-
-### Step 3: Replace with Your Desired Time
-
-**Cron Expression Format:**
-```
-┌───────────── minute (0 - 59)
-│ ┌───────────── hour (0 - 23)
-│ │ ┌───────────── day of month (1 - 31)
-│ │ │ ┌───────────── month (1 - 12)
-│ │ │ │ ┌───────────── day of week (0 - 7) (0 or 7 = Sunday)
-│ │ │ │ │
-* * * * *
-```
-
-### Common Schedule Examples
-
-| What You Want | Cron Expression | Code |
-|--------------|----------------|------|
-| **9:00 AM daily** (default) | `0 9 * * *` | `const cronExpression = '0 9 * * *';` |
-| **2:30 PM daily** | `30 14 * * *` | `const cronExpression = '30 14 * * *';` |
-| **Midnight (12:00 AM)** | `0 0 * * *` | `const cronExpression = '0 0 * * *';` |
-| **Every 6 hours** | `0 */6 * * *` | `const cronExpression = '0 */6 * * *';` |
-| **9 AM on weekdays only** | `0 9 * * 1-5` | `const cronExpression = '0 9 * * 1-5';` |
-| **Twice daily (9 AM & 9 PM)** | `0 9,21 * * *` | `const cronExpression = '0 9,21 * * *';` |
-| **Every hour** | `0 * * * *` | `const cronExpression = '0 * * * *';` |
-| **Every 30 minutes** | `*/30 * * * *` | `const cronExpression = '*/30 * * * *';` |
-
-### Step 4: Save and Restart
-
-1. Save the file
-2. Stop backend server (Ctrl+C)
-3. Restart: `npm start`
-4. Check console for confirmation:
-   ```
-   ✅ Scheduler configured:
-      - Time: [Your New Time]
-      - Cron: [Your Cron Expression]
-   ```
-
-### Example: Change to 2:30 PM Daily
-
-**Before:**
-```javascript
-const cronExpression = '0 9 * * *'; // 9:00 AM daily
-```
-
-**After:**
-```javascript
-const cronExpression = '30 14 * * *'; // 2:30 PM daily
-```
-
-### Testing Your Cron Expression
-
-Use this online tool to validate: **https://crontab.guru/**
-
-Just enter your cron expression and it will show you in plain English when it will run.
-
----
-
-## 📝 How to Update URLs List
-
-### Method 1: Edit CSV File Directly (Recommended)
-
-**Step 1:** Navigate to the CSV file
-```
-backend/data/urls.csv
-```
-
-**Step 2:** Open with Excel, Google Sheets, or any text editor
-
-**Step 3:** Add/Edit URLs following this format:
-```csv
-URL,Status,Last Checked Date,Notes
-https://yourwebsite.com,Pending,Not yet checked,
-https://another-site.com,Pending,Not yet checked,
-```
-
-**Step 4:** Save the file
-
-**Step 5:** Restart backend server (if running) or wait for next check
-
-**Important:** 
-- Keep the header row (first row)
-- Use `Pending` status for new URLs
-- Use `Not yet checked` for Last Checked Date
-- Leave Notes empty or add your own notes
-
-### Method 2: Modify Sample Data Function
-
-**Step 1:** Open `backend/models/urlModel.js`
-
-**Step 2:** Find the `createSampleData()` function
-
-**Step 3:** Replace the sample URLs with your own:
-
-```javascript
-static async createSampleData() {
-  const sampleURLs = [
-    // Your indexed URLs
-    { url: 'https://mysite.com', status: 'Pending', lastChecked: 'Not yet checked', notes: '' },
-    { url: 'https://mysite.com/page1', status: 'Pending', lastChecked: 'Not yet checked', notes: '' },
-    
-    // Your other URLs
-    { url: 'https://mysite.com/page2', status: 'Pending', lastChecked: 'Not yet checked', notes: '' },
-    // ... add more URLs
-  ];
-
-  await this.writeAllURLs(sampleURLs);
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 }
 ```
 
-**Step 4:** Delete the existing `backend/data/urls.csv` file
+### PostCSS Configuration
+File: `postcss.config.cjs` (must be .cjs)
 
-**Step 5:** Restart backend server - new CSV will be created with your URLs
-
-### Method 3: Bulk Upload (Advanced)
-
-**Step 1:** Create a text file with URLs (one per line):
-```
-https://site1.com
-https://site2.com
-https://site3.com
-```
-
-**Step 2:** Use a script or Excel to convert to CSV format:
-```csv
-URL,Status,Last Checked Date,Notes
-https://site1.com,Pending,Not yet checked,
-https://site2.com,Pending,Not yet checked,
-https://site3.com,Pending,Not yet checked,
+```javascript
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
 ```
 
-**Step 3:** Replace `backend/data/urls.csv` with your file
+**Important:** Config files must use `.cjs` extension because `package.json` has `"type": "module"`.
 
-### CSV File Format Rules
+---
 
-✅ **Correct Format:**
-```csv
-URL,Status,Last Checked Date,Notes
-https://example.com,Pending,Not yet checked,
-https://site.com/page,Indexed,06/12/2025 10:30:00 AM,HTTP 200 - Page accessible
+## 🔌 API Integration
+
+### API Service
+File: `src/services/api.js`
+
+```javascript
+const API_BASE_URL = 'http://localhost:5000/api';
 ```
 
-❌ **Common Mistakes:**
-```csv
-# Missing header
-https://example.com,Pending,Not yet checked,
+### Available API Methods
 
-# Wrong separator (semicolon instead of comma)
-URL;Status;Last Checked Date;Notes
+```javascript
+import api from './services/api';
 
-# Missing columns
-https://example.com,Pending
+// Get all URLs
+const response = await api.getAllURLs();
+
+// Trigger manual check
+const response = await api.checkURLs();
+
+// Get statistics
+const response = await api.getStatus();
 ```
 
-### Supported URL Count
+### Change Backend URL
 
-- **Default**: 30 URLs (sample data)
-- **Recommended**: Up to 100 URLs for CSV
-- **Maximum**: No hard limit, but consider database for 100+ URLs
+Edit `src/services/api.js`:
+```javascript
+const API_BASE_URL = 'https://your-backend-url.com/api';
+```
 
-### Updating URLs While Server is Running
+Or use environment variables:
+```javascript
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+```
 
-1. **Stop the check** (wait for current check to finish if running)
-2. **Edit the CSV file**
-3. **Save changes**
-4. **Manual check**: Click "Run Check Now" to see new URLs
-5. **Or wait**: Next scheduled check will process new URLs
+Create `.env`:
+```env
+VITE_API_URL=https://your-backend-url.com/api
+```
 
-### Backup Your URLs
+---
 
-Before making changes:
+## 🎨 Components
+
+### Dashboard Component
+File: `src/components/Dashboard.jsx`
+
+**Features:**
+- Statistics cards (Total, Indexed, Not Indexed, Invalid, Pending)
+- Manual check button with loading state
+- Alert messages (success/error/info)
+- Last checked timestamp
+- Responsive grid layout
+
+**State Management:**
+```javascript
+const [urls, setUrls] = useState([]);
+const [stats, setStats] = useState(null);
+const [loading, setLoading] = useState(false);
+const [checking, setChecking] = useState(false);
+const [message, setMessage] = useState(null);
+```
+
+### URLTable Component
+File: `src/components/URLTable.jsx`
+
+**Features:**
+- Responsive table with 5 columns
+- Color-coded status badges:
+  - 🟢 Green = Indexed
+  - 🔴 Red = Not Indexed
+  - ⚫ Gray = Invalid URL
+  - 🔵 Blue = Pending
+- Clickable URLs (open in new tab)
+- Loading spinner
+- Empty state handling
+- Hover effects
+
+---
+
+## 🎯 Features
+
+### 1. Real-time Statistics
+- Total URLs count
+- Indexed count (green)
+- Not Indexed count (red)
+- Invalid URLs count (gray)
+- Pending checks (blue)
+
+### 2. Manual Check Trigger
+- "Run Check Now" button
+- Loading state with spinner
+- Success/error messages
+- Auto-dismiss alerts (5 seconds)
+
+### 3. URL Table
+- Sortable columns
+- Status badges with icons
+- Last checked timestamps
+- Error notes/details
+- Responsive design
+
+### 4. User Experience
+- Clean, modern interface
+- Smooth transitions
+- Loading states
+- Empty states
+- Error handling
+- Mobile responsive
+
+---
+
+## 🎨 Styling
+
+### Tailwind CSS Classes
+
+**Color Palette:**
+- Primary: Blue (bg-blue-600, text-blue-600)
+- Success: Green (bg-green-100, text-green-800)
+- Error: Red (bg-red-100, text-red-800)
+- Warning: Gray (bg-gray-100, text-gray-800)
+- Info: Blue (bg-blue-50, text-blue-800)
+
+**Component Styling:**
+```jsx
+// Statistics Card
+<div className="bg-white rounded-lg shadow p-6">
+
+// Status Badge (Indexed)
+<span className="bg-green-100 text-green-800 border-green-200">
+
+// Button
+<button className="bg-blue-600 hover:bg-blue-700 text-white">
+```
+
+### Custom Styles
+File: `src/index.css`
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f3f4f6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto';
+}
+```
+
+---
+
+## 🧪 Development
+
+### Development Server
 ```bash
-# Windows
-copy backend\data\urls.csv backend\data\urls_backup.csv
+npm run dev
+```
+- Hot Module Replacement (HMR)
+- Fast refresh
+- Opens at http://localhost:5173
 
-# Mac/Linux
-cp backend/data/urls.csv backend/data/urls_backup.csv
+### Build for Production
+```bash
+npm run build
+```
+- Creates optimized bundle in `dist/`
+- Minifies code
+- Tree-shaking
+
+### Preview Production Build
+```bash
+npm run preview
 ```
 
----
-
-## 🔍 Indexation Check Explanation
-
-### How We Check Indexation (3-5 Lines)
-
-We check URL indexation by first validating the URL format (protocol, domain structure), then making an HTTP GET request to verify the page is accessible. If the page returns HTTP 200 OK status, we mark it as likely indexed; 404/403 errors are marked as not indexed; DNS failures or malformed URLs are marked as invalid. This method tests page accessibility rather than querying Google's actual index, making it suitable for demonstration but requiring Google Search Console API integration for production accuracy.
-
-### What Gets Checked
-
-For each URL, the system:
-1. ✅ Validates URL format and structure
-2. ✅ Makes HTTP request with 10-second timeout
-3. ✅ Analyzes HTTP response status code
-4. ✅ Handles errors gracefully (DNS, timeout, connection)
-5. ✅ Stores result with timestamp and notes
-
-### Status Types
-
-- **Indexed** - HTTP 200 OK (page accessible and working)
-- **Not Indexed** - 404, 403, or other errors
-- **Invalid URL** - Malformed format, DNS not found, connection refused
-- **Pending** - Not yet checked
-
----
-
-## 📁 Project Structure
-
+### Scripts
+```json
+{
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+}
 ```
-url-indexation-checker/
-├── backend/
-│   ├── config/scheduler.js          # ← Cron job (change schedule here)
-│   ├── controllers/urlController.js
-│   ├── middleware/errorHandler.js
-│   ├── models/urlModel.js           # ← Sample data (edit URLs here)
-│   ├── routes/urlRoutes.js
-│   ├── services/indexationService.js
-│   ├── data/
-│   │   └── urls.csv                 # ← URL list (edit directly)
-│   ├── server.js
-│   └── package.json
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Dashboard.jsx
-│   │   │   └── URLTable.jsx
-│   │   ├── services/
-│   │   │   └── api.js
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── postcss.config.cjs           # ← Must be .cjs extension
-│   ├── tailwind.config.cjs          # ← Must be .cjs extension
-│   └── package.json
-│
-└── README.md
-```
-
----
-
-## 🧪 Testing
-
-### Manual Testing
-1. Start both backend and frontend
-2. Open http://localhost:5173
-3. Click "Run Check Now"
-4. Watch status updates in table
-5. Check `backend/data/urls.csv` for updated data
-
-### Verify Scheduler
-1. Check backend console for scheduler confirmation
-2. Set schedule to run in 2 minutes for testing
-3. Watch console for automatic check execution
-4. Verify CSV updates after scheduled run
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Backend won't start
-- Check if port 5000 is available
-- Verify all dependencies installed: `npm install`
-- Check for syntax errors in files
+### PostCSS/Tailwind Errors
 
-### Frontend won't start
-- Delete `node_modules` and `package-lock.json`
-- Run `npm install` again
-- Ensure config files end in `.cjs` not `.js`
+**Error:** `Failed to load PostCSS config`
 
-### CSV not updating
-- Close Excel if file is open
-- Check file permissions
-- Verify `backend/data` folder exists
+**Solution:** Ensure config files use `.cjs` extension:
+- ✅ `postcss.config.cjs`
+- ✅ `tailwind.config.cjs`
+- ❌ NOT `postcss.config.js`
 
-### Scheduler not running
-- Check backend console for error messages
-- Verify cron expression is valid
-- Ensure server is running continuously
+```bash
+# Delete .js versions
+rm postcss.config.js tailwind.config.js
+
+# Recreate as .cjs
+# (See Configuration section above)
+```
+
+### API Connection Issues
+
+**Error:** `Network Error` or CORS error
+
+**Solutions:**
+1. Ensure backend is running on port 5000
+2. Check `src/services/api.js` has correct URL
+3. Verify backend CORS allows localhost:5173
+4. Check browser console for details
+
+### Module Not Found
+
+**Error:** `Cannot find module 'xyz'`
+
+**Solution:**
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Port Already in Use
+
+**Error:** `Port 5173 is already in use`
+
+**Solution:**
+```bash
+# Change port in vite.config.js
+server: {
+  port: 5174  // Use different port
+}
+```
 
 ---
 
-## 📞 Support
+## 🔄 State Management
 
-For issues or questions:
-1. Check this README
-2. Review console error messages
-3. Verify all files are created correctly
-4. Ensure all dependencies installed
+### Data Flow
+
+```
+User Action → API Call → Update State → Re-render
+
+Example:
+Click "Run Check Now"
+  ↓
+api.checkURLs()
+  ↓
+setUrls(response.data)
+  ↓
+URLTable re-renders
+```
+
+### React Hooks Used
+
+```javascript
+useState()    // State management
+useEffect()   // Fetch data on mount
+```
 
 ---
 
-## ✅ Summary
+## 📱 Responsive Design
 
-**What you get:**
-- ✅ Automated URL indexation checker
-- ✅ Daily checks at 9 AM IST (customizable)
-- ✅ Manual trigger button
-- ✅ Visual dashboard with statistics
-- ✅ CSV data storage
-- ✅ Error handling for invalid URLs
+### Breakpoints (Tailwind)
+- `sm:` - 640px
+- `md:` - 768px
+- `lg:` - 1024px
 
-**Tech used:**
-- Backend: Node.js + Express
-- Frontend: React + Tailwind CSS
-- Storage: CSV file
-- Scheduler: node-cron
+### Mobile Optimization
+- Stacked statistics cards on mobile
+- Horizontal scrolling table
+- Touch-friendly buttons
+- Readable font sizes
 
-**Key files to remember:**
-- Schedule: `backend/config/scheduler.js`
-- URLs: `backend/data/urls.csv`
-- API: `frontend/src/services/api.js`
+---
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. **Install Vercel CLI**
+```bash
+npm install -g vercel
+```
+
+2. **Deploy**
+```bash
+npm run build
+vercel --prod
+```
+
+3. **Set Environment Variables**
+   - `VITE_API_URL` = your backend URL
+
+### Netlify
+
+1. **Build Command:** `npm run build`
+2. **Publish Directory:** `dist`
+3. **Environment Variables:**
+   - `VITE_API_URL` = your backend URL
+
+### GitHub Pages
+
+1. **Update `vite.config.js`:**
+```javascript
+export default defineConfig({
+  base: '/repository-name/',
+  // ... rest of config
+})
+```
+
+2. **Deploy:**
+```bash
+npm run build
+npx gh-pages -d dist
+```
+
+---
+
+## 🔐 Environment Variables
+
+### Development
+Create `.env.local`:
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+
+---
+
+## 📊 Performance
+
+### Optimization Tips
+- Component memoization with `React.memo()`
+- Lazy loading routes
+- Code splitting
+- Image optimization
+- Minimize re-renders
+
+### Current Performance
+- Fast initial load (< 2s)
+- Smooth interactions
+- Efficient state updates
+- Responsive UI
+
+---
+
+## 🎯 User Flow
+
+```
+1. User opens dashboard
+   ↓
+2. App fetches URLs and stats
+   ↓
+3. Display in table with statistics
+   ↓
+4. User clicks "Run Check Now"
+   ↓
+5. Show loading state
+   ↓
+6. API checks all URLs
+   ↓
+7. Update table with new status
+   ↓
+8. Show success message
+   ↓
+9. Auto-refresh statistics
+```
+
+---
+
+## 🤝 Backend Integration
+
+### Required Backend Endpoints
+
+```
+GET  /api/urls        - Get all URLs
+POST /api/urls/check  - Trigger check
+GET  /api/urls/status - Get statistics
+```
+
+### Expected Response Format
+
+```javascript
+{
+  success: true,
+  data: [
+    {
+      url: string,
+      status: string,
+      lastChecked: string,
+      notes: string
+    }
+  ]
+}
+```
+
+---
+
+## 🔧 Customization
+
+### Change Colors
+
+Edit Tailwind classes in components:
+```jsx
+// Change primary color from blue to purple
+className="bg-purple-600 hover:bg-purple-700"
+```
+
+### Add New Features
+
+1. Create component in `src/components/`
+2. Import in `Dashboard.jsx`
+3. Add to render
+
+### Modify Layout
+
+Edit `src/components/Dashboard.jsx` grid classes:
+```jsx
+// Change from 5 columns to 3
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+```
+
+---
+
+## 📄 License
+
+MIT License
 
 ---
 
 **Version**: 1.0.0  
-**Assignment**: Web Development L2  
-**Status**: ✅ Ready to Submit
+**React Version**: 18.2.0  
+**Build Tool**: Vite 5.x
